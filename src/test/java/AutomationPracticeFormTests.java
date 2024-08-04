@@ -4,7 +4,6 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import java.io.File;
 
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selectors.byText;
@@ -29,22 +28,26 @@ public class AutomationPracticeFormTests {
 
 
         open("/automation-practice-form");
+        executeJavaScript("$('#fixedban').remove()"); //  чтобы тест не упал из-за всплывающих баннеров
+        executeJavaScript("$('footer').remove()");  //  чтобы тест не упал из-за всплывающих баннеров
         $("#firstName").setValue("Den");
         $("#lastName").setValue("White");
         $("#userEmail").setValue("DedWhite@example.com");
         $("#userNumber").setValue("89104054060");
-        $(byText("Male")).click(); //радиокнопка
+        //$("#genterWrapper").$(byText("Male")).click(); //радиокнопка
+        $(".custom-control", 0).click();
         $("#dateOfBirthInput").click();
         $(".react-datepicker__month-select").selectOption("March");
         $(".react-datepicker__year-select").selectOption("1990");
         $(".react-datepicker__day.react-datepicker__day--026").click();
         $("#userEmail").setValue("DedWhite@example.com");
         $("#subjectsInput").setValue("English").pressEnter(); //выпадающий список
-        $(byText("Reading")).click(); //чек-бокс
+        $("#hobbiesWrapper").$(".custom-control-label", 1).click(); //чек-бокс
 
         //загрузка файла
         //предварительно добавляем файл в репозиторий
-        $("#uploadPicture").uploadFile(new File("src/test/files/af75334fb974303ac203acd513435cc2.jpg"));
+        //$("#uploadPicture").uploadFile(new File("src/test/files/af75334fb974303ac203acd513435cc2.jpg")); //первый способ загрузить файл
+        $("#uploadPicture").uploadFromClasspath("af75334fb974303ac203acd513435cc2.jpg");
         $("#currentAddress").setValue("Russia, Moscow");
 
         //выпадающий список
