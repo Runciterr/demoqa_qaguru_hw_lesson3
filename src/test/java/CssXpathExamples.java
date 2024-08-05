@@ -47,7 +47,7 @@ public class CssXpathExamples {
         //<div>Hello, qa.guru!</div>
         $(byText("Hello, qa.guru!"));
         $(withText("llo, qa.g"));
-        $x("//*[text()='Hello, qa.guru!']")); // моветон xpath
-        $x("//*[contains(text(),'Hello, qa.guru!']")); // xpath
+        $x("//*[text()='Hello, qa.guru!']"); // моветон xpath
+        $x("//*[contains(text(),'Hello, qa.guru!']"); // xpath
     }
 }
