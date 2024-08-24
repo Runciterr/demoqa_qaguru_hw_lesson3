@@ -35,8 +35,6 @@ public class SoftAssertionsJUnit5Test {
         // открыть страницу SoftAssertions, проверить что внутри есть пример кода для JUnit5
         $(byText("SoftAssertions")).click();
 
-        //$(byText("JUnit5 extension "));
-
         $("#wiki-body").shouldHave(text(
                 "@ExtendWith({SoftAssertsExtension.class})\n" +
                 "class Tests {\n" +
