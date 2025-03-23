@@ -18,5 +18,6 @@ public class EnterprizeGitHubPageTest {
         $(byTagAndText("button", "Solutions")).hover();
         $(byTagAndText("a", "Enterprise")).click();
         $("#hero-section-brand-heading").shouldHave(text("The AI-powered developer platform."));
+        sleep (6000);
     }
 }

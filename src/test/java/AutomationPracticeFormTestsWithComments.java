@@ -8,14 +8,15 @@ import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
 
-public class AutomationPracticeFormTests {
+public class AutomationPracticeFormTestsWithComments {
 
     @BeforeAll
     static void beforeAll() {
         Configuration.browserSize = "1920x1080";
         Configuration.pageLoadStrategy = "eager";
         Configuration.baseUrl = "https://demoqa.com";
-        Configuration.timeout = 5000;
+        //Configuration.holdBrowserOpen = true;
+        Configuration.timeout = 5000; // default 4000
     }
 
     @AfterAll
@@ -28,31 +29,42 @@ public class AutomationPracticeFormTests {
 
 
         open("/automation-practice-form");
-        $(".practice-form-wrapper").shouldHave(text("Student Registration Form"));
-        executeJavaScript("$('#fixedban').remove()");
-        executeJavaScript("$('footer').remove()");
+        $(".practice-form-wrapper").shouldHave(text("Student Registration Form")); //проверка того, что сайт вообще открылся
+
+        executeJavaScript("$('#fixedban').remove()"); //  чтобы тест не упал из-за всплывающих баннеров
+        executeJavaScript("$('footer').remove()");  //  чтобы тест не упал из-за всплывающих баннеров
         $("#firstName").setValue("Den");
         $("#lastName").setValue("White");
         $("#userEmail").setValue("DedWhite@example.com");
 
         $("#userNumber").setValue("89104054060");
-        $(".custom-control", 0).click();
+        //$("#genterWrapper").$(byText("Male")).click(); //радиокнопка best
+        //$("#gender-radio-3").parent().click(); //еще один способ с радиокнопкой - подняться на уровень выше
+        //$("label[for=gender-radio-1]").click(); //тоже радиокнопка
+        $(".custom-control", 0).click(); //тоже радиокнопка
         $("#dateOfBirthInput").click();
         $(".react-datepicker__month-select").selectOption("March");
         $(".react-datepicker__year-select").selectOption("1990");
         $(".react-datepicker__day.react-datepicker__day--026").click();
-        $("#subjectsInput").setValue("English").pressEnter();
-        $("#hobbiesWrapper").$(".custom-control-label", 1).click();
+        $("#subjectsInput").setValue("English").pressEnter(); //выпадающий список
+        $("#hobbiesWrapper").$(".custom-control-label", 1).click(); //чек-бокс
+
+        //загрузка файла
+        //предварительно добавляем файл в репозиторий
+        //$("#uploadPicture").uploadFile(new File("src/test/files/af75334fb974303ac203acd513435cc2.jpg")); //первый способ загрузить файл
         $("#uploadPicture").uploadFromClasspath("af75334fb974303ac203acd513435cc2.jpg");
         $("#currentAddress").setValue("Russia, Moscow");
+
+        //выпадающий список
         $("#state").click();
         $("#stateCity-wrapper").$(byText("Rajasthan")).click();
         $("#city").click();
         $("#stateCity-wrapper").$(byText("Jaipur")).click();
         $("#submit").click();
 
-
-        $("#example-modal-sizes-title-lg").shouldHave(text("Thanks for submitting the form"));
+        //проверки:
+        $("#example-modal-sizes-title-lg").shouldHave(text("Thanks for submitting the form")); //проверка, что само окно формы появилось
+        //$(".modal-dialog").should(appear); //проверка, что само окно формы появилось
         $(".table-responsive").shouldHave(
                 Condition.text("Student Name Den White"),
                 Condition.text("Student Email DedWhite@example.com"),
@@ -65,7 +77,7 @@ public class AutomationPracticeFormTests {
                 Condition.text("Address Russia, Moscow"),
                 Condition.text("State and City Rajasthan Jaipur"));
 
-
+        
     }
 
 }
