@@ -16,7 +16,6 @@ public class AutomationPracticeFormTests {
         Configuration.pageLoadStrategy = "eager";
         Configuration.baseUrl = "https://demoqa.com";
         Configuration.timeout = 5000;
-        Configuration.holdBrowserOpen = true;
     }
 
     @AfterAll
