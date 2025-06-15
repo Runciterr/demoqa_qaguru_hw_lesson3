@@ -40,7 +40,6 @@ public class AutomationPracticeFormTests {
         $(".react-datepicker__year-select").selectOption("1990");
         $(".react-datepicker__day.react-datepicker__day--026").click();
         $("#subjectsInput").setValue("English").pressEnter();
-        //$("#hobbiesWrapper").$(".custom-control-label", 1).click();
         $("#hobbiesWrapper").$(byText("Reading")).click();
         $("#uploadPicture").uploadFromClasspath("af75334fb974303ac203acd513435cc2.jpg");
         $("#currentAddress").setValue("Russia, Moscow");
