@@ -11,14 +11,14 @@ import static com.codeborne.selenide.Selenide.*;
 public class AutomationPracticeFormTests {
 
     @BeforeAll
-    static void beforeAll() {
+    static void setUp() {
         Configuration.browserSize = "1920x1080";
         Configuration.pageLoadStrategy = "eager";
         Configuration.baseUrl = "https://demoqa.com";
     }
 
     @AfterAll
-    static void afterAll() {
+    static void tearDown() {
         closeWebDriver();
     }
 
@@ -34,13 +34,14 @@ public class AutomationPracticeFormTests {
         $("#lastName").setValue("White");
         $("#userEmail").setValue("DedWhite@example.com");
         $("#userNumber").setValue("89104054060");
-        $(".custom-control", 0).click();
+        $("#genterWrapper").$(byText("Male")).click();
         $("#dateOfBirthInput").click();
         $(".react-datepicker__month-select").selectOption("March");
         $(".react-datepicker__year-select").selectOption("1990");
         $(".react-datepicker__day.react-datepicker__day--026").click();
         $("#subjectsInput").setValue("English").pressEnter();
-        $("#hobbiesWrapper").$(".custom-control-label", 1).click();
+        //$("#hobbiesWrapper").$(".custom-control-label", 1).click();
+        $("#hobbiesWrapper").$(byText("Reading")).click();
         $("#uploadPicture").uploadFromClasspath("af75334fb974303ac203acd513435cc2.jpg");
         $("#currentAddress").setValue("Russia, Moscow");
         $("#state").click();
