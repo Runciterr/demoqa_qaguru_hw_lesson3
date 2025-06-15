@@ -11,7 +11,7 @@ import static com.codeborne.selenide.Selenide.*;
 public class AutomationPracticeFormTestsWithComments {
 
     @BeforeAll
-    static void beforeAll() {
+    static void beforeAll() { // метод beforeAll лучше называть setUp
         Configuration.browserSize = "1920x1080";
         Configuration.pageLoadStrategy = "eager";
         Configuration.baseUrl = "https://demoqa.com";
@@ -23,6 +23,7 @@ public class AutomationPracticeFormTestsWithComments {
     static void afterAll() {
         closeWebDriver();
     }
+    // метод AfterAll лучше называть tearDown
 
     @Test
     void fillAutomationFormTest() {
