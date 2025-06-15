@@ -15,8 +15,6 @@ public class AutomationPracticeFormTests {
         Configuration.browserSize = "1920x1080";
         Configuration.pageLoadStrategy = "eager";
         Configuration.baseUrl = "https://demoqa.com";
-        Configuration.timeout = 5000;
-        Configuration.holdBrowserOpen = true;
     }
 
     @AfterAll
@@ -35,7 +33,6 @@ public class AutomationPracticeFormTests {
         $("#firstName").setValue("Den");
         $("#lastName").setValue("White");
         $("#userEmail").setValue("DedWhite@example.com");
-
         $("#userNumber").setValue("89104054060");
         $(".custom-control", 0).click();
         $("#dateOfBirthInput").click();
