@@ -16,6 +16,7 @@ public class AutomationPracticeFormTests {
         Configuration.pageLoadStrategy = "eager";
         Configuration.baseUrl = "https://demoqa.com";
         Configuration.timeout = 5000;
+        Configuration.holdBrowserOpen = true;
     }
 
     @AfterAll
@@ -53,17 +54,16 @@ public class AutomationPracticeFormTests {
 
 
         $("#example-modal-sizes-title-lg").shouldHave(text("Thanks for submitting the form"));
-        $(".table-responsive").shouldHave(
-                Condition.text("Student Name Den White"),
-                Condition.text("Student Email DedWhite@example.com"),
-                Condition.text("Gender Male"),
-                Condition.text("Mobile 8910405406"),
-                Condition.text("Date of Birth 26 February,1990"),
-                Condition.text("Subjects English"),
-                Condition.text("Hobbies Reading"),
-                Condition.text("Picture af75334fb974303ac203acd513435cc2.jpg"),
-                Condition.text("Address Russia, Moscow"),
-                Condition.text("State and City Rajasthan Jaipur"));
+        $(".table-responsive").shouldHave(Condition.text("Student Name Den White"));
+        $(".table-responsive").shouldHave(Condition.text("Student Email DedWhite@example.com"));
+        $(".table-responsive").shouldHave(Condition.text("Gender Male"));
+        $(".table-responsive").shouldHave(Condition.text("Mobile 8910405406"));
+        $(".table-responsive").shouldHave(Condition.text("Date of Birth 26 February,1990"));
+        $(".table-responsive").shouldHave(Condition.text("Subjects English"));
+        $(".table-responsive").shouldHave(Condition.text("Hobbies Reading"));
+        $(".table-responsive").shouldHave(Condition.text("Picture af75334fb974303ac203acd513435cc2.jpg"));
+        $(".table-responsive").shouldHave(Condition.text("Address Russia, Moscow"));
+        $(".table-responsive").shouldHave(Condition.text("State and City Rajasthan Jaipur"));
 
 
     }
