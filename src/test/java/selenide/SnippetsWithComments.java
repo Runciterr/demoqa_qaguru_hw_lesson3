@@ -25,7 +25,7 @@ public class SnippetsWithComments {
         Selenide.refresh(); //кнопка "Перезагрузить(обновить) страницу"  в браузере
 
         Selenide.clearBrowserCookies(); //очисть куки
-        Selenide.clearBrowserLocalStorage(); /
+        Selenide.clearBrowserLocalStorage();
         executeJavaScript("sessionStorage.clear();"); // no Selenide command for this yet
 
         //JS алерты (варианты аллертов https://the-internet.herokuapp.com/javascript_alerts)
@@ -207,20 +207,24 @@ public class SnippetsWithComments {
 
     void file_operation_examples() throws FileNotFoundException {
 
+        //скачивание файла
         File file1 = $("a.fileLink").download(); // only for <a href=".."> <- работает только с таким кодом links //только скачивание
         File file2 = $("div").download(DownloadOptions.using(FileDownloadMode.FOLDER)); // работает почти всегда
 
+
+        //загрузка файла на сервер
         File file = new File("src/test/resources/readme.txt");
         $("#file-upload").uploadFile(file);
         $("#file-upload").uploadFromClasspath("readme.txt"); //
-        // don't forget to submit!
+        // не забывать добавлять Submit
         $("uploadButton").click();
     }
 
+    //запуск javascript
     void javascript_examples() {
         executeJavaScript("alert('selenide')");
         executeJavaScript("alert(arguments[0]+arguments[1])", "abc", 12);
-        long fortytwo = executeJavaScript("return arguments[0]*arguments[1];", 6, 7);
+        long fortytwo = executeJavaScript("return arguments[0]*arguments[1];", 6, 7); //получать значение джаваскрипта (вариант return)
 
     }
 }

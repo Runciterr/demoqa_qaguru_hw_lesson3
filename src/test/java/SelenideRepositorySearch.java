@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Test;
 
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
-import static com.codeborne.selenide.Selenide.$;
 
 public class SelenideRepositorySearch {
 
@@ -24,7 +23,7 @@ public class SelenideRepositorySearch {
         $(".placeholder").$(byText("Search or jump to...")).click();
         $("#query-builder-test").setValue("selenide").pressEnter();
         // кликнуть на первый репозиторий из списка найденных
-        $$("[data-testid='results-list']").first().$("a").click();
+        $$("[data-testid='results-list']").first().$("a").click(); //команда через $$
         // проверка: заголовок selenide/selenide
         $("#repository-container-header").$("a[rel='author']").shouldHave(Condition.text("selenide"));
 

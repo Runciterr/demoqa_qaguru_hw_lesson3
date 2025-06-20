@@ -25,7 +25,7 @@ public class SoftAssertionsJUnit5Test {
         // ввести selenide в строке поиска
         $("div.search-input-container").click();
         $("#query-builder-test").setValue("selenide").pressEnter();
-        $$("div.kXssRI div").first().$("a").click();
+        $$("[data-testid='results-list']").first().$("a").click();
 
         // перейти на страницу с wiki
         $("#wiki-tab").click();
