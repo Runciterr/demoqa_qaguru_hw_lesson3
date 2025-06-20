@@ -87,36 +87,37 @@ public class SnippetsWithComments {
 
     void actions_examples() { //действия
         $("").click();
-        $("").doubleClick();
+        $("").doubleClick(); //двойной клик
         $("").contextClick(); //клик правой кнопкой мыши
 
         $("").hover();
 
         $("").setValue("text"); //записываем текст в поле для ввода
         $("").append("text"); //добавляет текст к уже написанному
-        $("").clear();
-        $("").setValue(""); // clear
+        $("").clear(); //иногда работает неправильно
+        $("").setValue(""); // clear, очищение поля
 
-        $("div").sendKeys("c"); // hotkey c on element (эмуляция нажатия клавиш)
+        $("div").sendKeys("c"); // hotkey c on element (эмуляция нажатия горячих клавиш)
         actions().sendKeys("c").perform(); //hotkey c on whole application
         actions().sendKeys(Keys.chord(Keys.CONTROL, "f")).perform(); // Ctrl + F (комбинация клавиш)
         $("html").sendKeys(Keys.chord(Keys.CONTROL, "f"));
 
-        $("").pressEnter();
-        $("").pressEscape();
-        $("").pressTab();
+        $("").pressEnter(); //нажать enter
+        $("").pressEscape(); //нажать escape
+        $("").pressTab(); //нажать Tab
 
 
         // complex actions with keybord and mouse, example
+        // передвинуть мышку к элементу, нажать на кнопку и не отпускать ее, передвинуть мышь на координату, отпустить клавишу мыши
         actions().moveToElement($("div")).clickAndHold().moveByOffset(300, 200).release().perform();
 
         // old html actions don't work with many modern frameworks
-        $("").selectOption("dropdown_option");
-        $("").selectRadio("radio_options");
+        $("").selectOption("dropdown_option"); //дропдауны. команда работает со старыми дропдаунами
+        $("").selectRadio("radio_options"); //радиокнопки, чек-боксы
 
     }
 
-    void assertions_examples() {
+    void assertions_examples() { //проверки
         $("").shouldBe(visible);
         $("").shouldNotBe(visible);
         $("").shouldHave(text("abc"));
@@ -124,74 +125,79 @@ public class SnippetsWithComments {
         $("").should(appear);
         $("").shouldNot(appear);
 
+        // примеры
+// $("#example-modal-sizes-title-lg").shouldHave(text("Thanks for submitting the form"));
+// $(".table-responsive").shouldHave(Condition.text("Student Name Den White"));
 
         //longer timeouts
-        $("").shouldBe(visible, Duration.ofSeconds(30));
+        $("").shouldBe(visible, Duration.ofSeconds(30));  //увеличить/уменишить таймаут
 
     }
 
     void conditions_examples() {
-        $("").shouldBe(visible);
-        $("").shouldBe(hidden);
+        $("").shouldBe(visible); //проверка на видимость
+        $("").shouldBe(hidden); //проверка на видимость
 
-        $("").shouldHave(text("abc")); //
-        $("").shouldHave(exactText("abc"));
-        $("").shouldHave(textCaseSensitive("abc"));
-        $("").shouldHave(exactTextCaseSensitive("abc"));
-        $("").should(matchText("[0-9]abc$"));
+        $("").shouldHave(text("abc")); //проверяет вхождение, те проверка будет успешна даже если совпадет часть большого текста (проверки не проверяют регистр)
+        $("").shouldHave(exactText("abc")); //проверяет только конкретный текст (проверки не проверяют регистр)
+        $("").shouldHave(textCaseSensitive("abc")); //если нужно проверить регистр
+        $("").shouldHave(exactTextCaseSensitive("abc")); //если нужно проверить регистр
+        $("").should(matchText("[0-9]abc$")); //regex
 
-        $("").shouldHave(cssClass("red"));
-        $("").shouldHave(cssValue("font-size", "12"));
+        $("").shouldHave(cssClass("red")); //проверяет содержит ли элемент данный класс
+        $("").shouldHave(cssValue("font-size", "12")); //проверка в проперти (вкладка Computed во вкладке Elements)
 
-        $("").shouldHave(value("25"));
-        $("").shouldHave(exactValue("25"));
-        $("").shouldBe(empty);
+        $("").shouldHave(value("25")); //проверка текста в инпутах
+        $("").shouldHave(exactValue("25")); //проверка текста в инпутах
+        $("").shouldBe(empty); //проверка, что поле ввода пустое
 
-        $("").shouldHave(attribute("disabled"));
-        $("").shouldHave(attribute("name", "example"));
+        $("").shouldHave(attribute("disabled")); //проверка атрибутов в DOM
+        $("").shouldHave(attribute("name", "example")); //проверка значения атрибута
         $("").shouldHave(attributeMatching("name", "[0-9]abc$"));
 
-        $("").shouldBe(checked); // for checkboxes
+        $("").shouldBe(checked); // чек-бокс проставлен
+        $("").shouldNotBe(checked); // чек-бокс не проставлен
 
-        // Warning! Only checks if it is in DOM, not if it is visible! You don't need it in most tests!
-        $("").should(exist);
+
+        $("").should(exist); //нужен редко, проверяет наличие элемента в DOM, но не проверяет его видимость
 
         // Warning! Checks only the "disabled" attribute! Will not work with many modern frameworks
-        $("").shouldBe(disabled);
+        $("").shouldBe(disabled); //проверяет только есть ли атрибут disabled
         $("").shouldBe(enabled);
     }
 
-    void collections_examples() {
+    void collections_examples() { //коллекции
 
-        $$("div"); // does nothing!
+        $$("div"); // искать все div. поиск начинается после ассерта или команды
 
         $$x("//div"); // by XPath
 
         // selections
-        $$("div").filterBy(text("123")).shouldHave(size(1));
-        $$("div").excludeWith(text("123")).shouldHave(size(1));
+        $$("div").filterBy(text("123")).shouldHave(size(1)); //фильтровать коллекцию
+        $$("div").excludeWith(text("123")).shouldHave(size(1)); //остаются только те элементы, которые не содержат текст 123
 
-        $$("div").first().click();
+        $$("div").first().click(); //первый элемент
         elements("div").first().click();
+
         // $("div").click();
         $$("div").last().click();
         $$("div").get(1).click(); // the second! (start with 0)
         $("div", 1).click(); // same as previous
-        $$("div").findBy(text("123")).click(); //  finds first
+        $$("div").findBy(text("123")).click(); //  finds first //комбинация элементов filter и first
 
         // assertions
-        $$("").shouldHave(size(0));
+        $$("").shouldHave(size(0)); //проверка на кол-во элементов
         $$("").shouldBe(CollectionCondition.empty); // the same
 
-        $$("").shouldHave(texts("Alfa", "Beta", "Gamma"));
+        $$("").shouldHave(texts("Alfa", "Beta", "Gamma")); //проверяет количество текстов, ищет подстроку
         $$("").shouldHave(exactTexts("Alfa", "Beta", "Gamma"));
 
-        $$("").shouldHave(textsInAnyOrder("Beta", "Gamma", "Alfa"));
+        $$("").shouldHave(textsInAnyOrder("Beta", "Gamma", "Alfa")); //игнорирует расположение текста
         $$("").shouldHave(exactTextsCaseSensitiveInAnyOrder("Beta", "Gamma", "Alfa"));
 
         $$("").shouldHave(itemWithText("Gamma")); // only one text
 
-        $$("").shouldHave(sizeGreaterThan(0));
+        $$("").shouldHave(sizeGreaterThan(0)); //проверка размера по кол-ву элементов больше чем
         $$("").shouldHave(sizeGreaterThanOrEqual(1));
         $$("").shouldHave(sizeLessThan(3));
         $$("").shouldHave(sizeLessThanOrEqual(2));
@@ -201,12 +207,12 @@ public class SnippetsWithComments {
 
     void file_operation_examples() throws FileNotFoundException {
 
-        File file1 = $("a.fileLink").download(); // only for <a href=".."> links
-        File file2 = $("div").download(DownloadOptions.using(FileDownloadMode.FOLDER)); // more common options, but may have problems with Grid/Selenoid
+        File file1 = $("a.fileLink").download(); // only for <a href=".."> <- работает только с таким кодом links //только скачивание
+        File file2 = $("div").download(DownloadOptions.using(FileDownloadMode.FOLDER)); // работает почти всегда
 
         File file = new File("src/test/resources/readme.txt");
         $("#file-upload").uploadFile(file);
-        $("#file-upload").uploadFromClasspath("readme.txt");
+        $("#file-upload").uploadFromClasspath("readme.txt"); //
         // don't forget to submit!
         $("uploadButton").click();
     }
